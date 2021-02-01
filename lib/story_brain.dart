@@ -1,6 +1,7 @@
 import 'story.dart';
 
 class StoryBrain {
+  int _storyNumber = 0;
   List<Story> _storyData = [
     Story(
         storyTitle:
@@ -33,5 +34,52 @@ class StoryBrain {
         choice2: '')
   ];
 
-  String getStory() => _storyData[0].storyTitle;
+  String getStory() => _storyData[_storyNumber].storyTitle;
+
+  String getChoice1() => _storyData[_storyNumber].choice1;
+
+  String getChoice2() => _storyData[_storyNumber].choice2;
+
+  bool buttonShouldBeVisible() {
+    return _storyNumber == 0 || _storyNumber == 1 || _storyNumber == 2;
+  }
+
+  void nextStory(int choiceNumber) {
+    print("choiceNumber: $choiceNumber, storyNumber: $_storyNumber");
+    if (_storyNumber == 0) {
+      if (choiceNumber == 1) {
+        _storyNumber = 2;
+      } else {
+        _storyNumber = 1;
+      }
+    } else if (_storyNumber == 1) {
+      if (choiceNumber == 1) {
+        _storyNumber = 2;
+      } else {
+        _storyNumber = 3;
+      }
+    } else if (_storyNumber == 2) {
+      if (choiceNumber == 1) {
+        _storyNumber = 5;
+      } else {
+        _storyNumber = 4;
+      }
+    } else {
+      _restart();
+    }
+  }
+
+  void _restart() => _storyNumber = 0;
+
+
+  // void nextStory(int userChoice) {
+  //   _storyNumber = {
+  //     0: {1: 2, 2: 1},
+  //     1: {1: 2, 2: 3},
+  //     2: {1: 5, 2: 4},
+  //     3: {1: 0, 2: 0},
+  //     4: {1: 0, 2: 0},
+  //     5: {1: 0, 2: 0},
+  //   }[_storyNumber][userChoice];
+  // }
 }

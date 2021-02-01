@@ -52,10 +52,14 @@ class _StoyPageState extends State<StoyPage> {
               Expanded(
                 flex: 2,
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _storyBrain.nextStory(1);
+                    });
+                  },
                   color: Colors.red,
                   child: Text(
-                    'Choice 1',
+                    _storyBrain.getChoice1(),
                     style: TextStyle(
                       fontSize: 20.0,
                     ),
@@ -67,13 +71,20 @@ class _StoyPageState extends State<StoyPage> {
               ),
               Expanded(
                 flex: 2,
-                child: FlatButton(
-                  onPressed: () {},
-                  color: Colors.blue,
-                  child: Text(
-                    'Choice 1',
-                    style: TextStyle(
-                      fontSize: 20.0,
+                child: Visibility(
+                  visible: _storyBrain.buttonShouldBeVisible(),
+                  child: FlatButton(
+                    onPressed: () {
+                      setState(() {
+                        _storyBrain.nextStory(2);
+                      });
+                    },
+                    color: Colors.blue,
+                    child: Text(
+                      _storyBrain.getChoice2(),
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
                     ),
                   ),
                 ),
