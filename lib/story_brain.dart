@@ -44,36 +44,6 @@ class StoryBrain {
     return _storyNumber == 0 || _storyNumber == 1 || _storyNumber == 2;
   }
 
-  void nextStoryBis(int choiceNumber) {
-    switch (_storyNumber) {
-      case 0:
-        if (choiceNumber == 1) {
-          _storyNumber = 2;
-        } else {
-          _storyNumber = 1;
-        }
-        break;
-      case 1:
-        if (choiceNumber == 1) {
-          _storyNumber = 2;
-        } else {
-          _storyNumber = 3;
-        }
-        break;
-      case 2:
-        if (choiceNumber == 1) {
-          _storyNumber = 5;
-        } else {
-          _storyNumber = 4;
-        }
-        break;
-      default:
-        _restart();
-    }
-  }
-
-  void _restart() => _storyNumber = 0;
-
   /// _storyNumber: {userChoice: return_value, userChoice: return_value},
   /// 0: {1: 2, 2: 1},
   void nextStory(int userChoice) {
@@ -81,9 +51,11 @@ class StoryBrain {
       0: {1: 2, 2: 1},
       1: {1: 2, 2: 3},
       2: {1: 5, 2: 4},
-      3: {1: 0, 2: 0},
-      4: {1: 0, 2: 0},
-      5: {1: 0, 2: 0},
+      3: {1: _restart(), 2: _restart()},
+      4: {1: _restart(), 2: _restart()},
+      5: {1: _restart(), 2: _restart()},
     }[_storyNumber][userChoice];
   }
+
+  int _restart() => 0;
 }
